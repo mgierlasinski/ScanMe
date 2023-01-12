@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="using:ScanMe.Views"
+             x:Class="ScanMe.Views.MainPage">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+        
+        <Image
+            Source="dotnet_bot.png"
+            HorizontalOptions="Center"
+            HeightRequest="100"
+            Margin="10" />
+
+        <Entry 
+            x:Name="Barcode" 
+            HorizontalOptions="Fill" 
+            Margin="10" 
+            Grid.Row="1" />
+
+        <Picker 
+            x:Name="Format" 
+            HorizontalOptions="Fill" 
+            Margin="10" 
+            Grid.Row="2" />
+
+        <local:BarcodeView 
+            Text="{Binding Source={x:Reference Barcode}, Path=Text}" 
+            Format="{Binding Source={x:Reference Format}, Path=SelectedItem}"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Margin="10"
+            Grid.Row="3">
+            <local:BarcodeView.Background>
+                <LinearGradientBrush EndPoint="1,1">
+                    <GradientStop Color="Yellow" Offset="0" />
+                    <GradientStop Color="Orange" Offset="1" />
+                </LinearGradientBrush>
+            </local:BarcodeView.Background>
+            <local:BarcodeView.Foreground>
+                <LinearGradientBrush EndPoint="1,1">
+                    <GradientStop Color="Red" Offset="0" />
+                    <GradientStop Color="Blue" Offset="1" />
+                </LinearGradientBrush>
+            </local:BarcodeView.Foreground>
+        </local:BarcodeView>
+
+    </Grid>
+
+</ContentPage>
