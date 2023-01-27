@@ -4,10 +4,10 @@ namespace ScanMe.Views;
 
 public partial class QuickParsePage : ContentPage
 {
-	public QuickParsePage()
+	public QuickParsePage(QuickParseViewModel viewModel)
 	{
 		InitializeComponent();
 
-        BindingContext = new QuickParseViewModel();
+        BindingContext = viewModel;
     }
 }

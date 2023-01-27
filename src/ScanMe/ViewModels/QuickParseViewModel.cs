@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using ScanMe.Models;
+using ScanMe.Services;
 using ScanMe.Views;
 
 namespace ScanMe.ViewModels;
@@ -6,6 +8,8 @@ namespace ScanMe.ViewModels;
 [ObservableObject]
 public partial class QuickParseViewModel
 {
+    private readonly IBarcodeService _barcodeService;
+
     [ObservableProperty]
     private string _text;
 
@@ -19,13 +23,21 @@ public partial class QuickParseViewModel
     private double _scale = 1;
 
     public IEnumerable<BarcodeFormat> Formats { get; } = Enum.GetValues<BarcodeFormat>();
-    
+
+    public QuickParseViewModel(IBarcodeService barcodeService)
+    {
+        _barcodeService = barcodeService;
+    }
+
     partial void OnTextChanged(string value)
     {
         var lines = value.Split('\r', StringSplitOptions.RemoveEmptyEntries);
-        Barcodes = lines.Select(x => new BarcodeItem
+        var data = lines.Select(x => new Barcode { Text = x }).ToArray();
+        _barcodeService.AddToHistory(data);
+
+        Barcodes = data.Select(x => new BarcodeItem
         {
-            Barcode = x,
+            Barcode = x.Text,
             Format = SelectedFormat
         }).ToList();
     }

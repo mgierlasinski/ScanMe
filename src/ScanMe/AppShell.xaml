@@ -12,6 +12,11 @@
         Route="QuickParse" />
 
     <ShellContent
+        Title="History"
+        ContentTemplate="{DataTemplate views:HistoryPage}"
+        Route="HistoryPage" />
+
+    <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate views:MainPage}"
         Route="MainPage" />

@@ -1,4 +1,8 @@
-﻿namespace ScanMe;
+﻿using ScanMe.Services;
+using ScanMe.ViewModels;
+using ScanMe.Views;
+
+namespace ScanMe;
 
 public static class MauiProgram
 {
@@ -13,6 +17,15 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		return builder.Build();
+
+        builder.Services.AddTransient<QuickParsePage>();
+        builder.Services.AddTransient<QuickParseViewModel>();
+        builder.Services.AddTransient<HistoryPage>();
+        builder.Services.AddTransient<HistoryViewModel>();
+
+        builder.Services.AddSingleton<IDatabaseProvider, DatabaseProvider>();
+        builder.Services.AddSingleton<IBarcodeService, BarcodeService>();
+
+        return builder.Build();
 	}
 }
